@@ -1,6 +1,6 @@
 # Contributing to OSGeoNepal
 
-### Prerequisites
+## **Prerequisites**
 
 Before you start your journey, make sure you have the following:
 
@@ -10,9 +10,9 @@ Before you start your journey, make sure you have the following:
 - Committer Responsibilities Guidelines - Make sure to follow these [OSGeo contributor guidelines](https://wiki.osgeo.org/wiki/Committer_Responsibilities_Guidelines).
 - Community Standards - Make sure you have gone through our [OSGeo Nepal community standards](./Standards.md)
 
-## How to get started
+## **How to get started**
 
-### Finding the issue
+### **Finding the issue**
 
 - Find the issue: Explore the OSGeoNepal repositories, and find the issue that piques your interest.
 - Filter by Labels: Use labels like "beginner-friendly" or "good first issue" to indicate tasks suitable for newcomers. Look for these labels when searching for issues.
@@ -22,7 +22,7 @@ Before you start your journey, make sure you have the following:
 - Assign: After that maintainer assigns you to the issue, or ask to assign yourself.
 - Proper Labeling: To begin contributing, add the label _Work in progress_.
 
-### Forking the repository
+### **Forking the repository**
 
 - Fork the repository: On the project's GitHub page, click the "Fork" button to create your copy of the repository. This allows you to work on changes without affecting the original project.
 - Clone your forked repository: Clone the forked repository to your local machine using the git clone command.
@@ -32,7 +32,7 @@ git clone https://github.com/your-username/repository.git
 
 ```
 
-### Make changes
+### **Make changes**
 
 - Create a new branch: Create a new branch in the repository that you cloned in your local machine. This is to keep your main branch clean and allows you to work on multiple features.
 
@@ -58,11 +58,13 @@ git push origin <feature-branch>
 
 ```
 
-### Creating the pull request
+### **Creating the pull request**
 
 - Open pull request (PR): Go to your GitHub repository, switch to your <feature-branch> (that you pushed), and click on the "New Pull Request" button.
 
-  #### Follow Pull request template : 
+
+
+#### Follow Pull request template: 
   - In order to add pull request template simple add `?template=default.md` in your PR URL for Eg : 
     ```
     https://github.com/osgeonepal/osgeonepal.github.io/compare/event/PR?template=events.md
@@ -73,4 +75,4 @@ git push origin <feature-branch>
 - Review process: Address the feedback that the project maintainer provide if any.
 - Merge pull request: Once your changes are approved, the maintainers will merge your pull request into the main project.
 
-_Congratulations! You have just contributed to the OSGeoNepal on GitHub._
+**_Congratulations! You have just contributed to the OSGeoNepal on GitHub._**

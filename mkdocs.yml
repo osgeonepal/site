@@ -5,9 +5,9 @@ docs_dir: "docs"
 site_dir: "build"
 
 #header
-repo_name: "osegonepal/rollingdoc"
-repo_url: "https://github.com/osgeonepal/rollingdoc/"
-site_url: "https://osgeonepal.github.io/rollingdoc/"
+repo_name: "osegonepal/site"
+repo_url: "https://github.com/osgeonepal/site/"
+site_url: "https://osgeonepal.github.io/site/"
 
 #Footer
 extra:
@@ -18,6 +18,11 @@ extra:
       link: "https://twitter.com/osgeonepal"
     - icon: "fontawesome/brands/facebook"
       link: "https://facebook.com/osgeonepal"
+    - icon: "fontawesome/brands/linkedin"
+      link: "https://www.linkedin.com/company/osgeonepal"
+    - icon: "fontawesome/brands/mastodon"
+      link: "https://mastodon.social/@osgeonepal"
+      
   copyright: Copyright &copy; 2023 OSGEONEPAL
   generator: false
 #Navigation
@@ -35,20 +40,33 @@ plugins:
       use_pymdownx: true
 
 extra_css:
-  - css/mkdocsoad.cssmkdocs
+  - css/mkdocsoad.css
 
 #customization
 theme:
   name: material
+  logo: assets/favicon.png
+  favicon: assets/favicon.png
+
   #internalization
   language: en
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
-      primary: pink
+      primary: green
       scheme: default
       toggle:
-        icon: material/brightness-7
+        icon: material/weather-night
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: green
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
 
 markdown_extensions:
   - attr_list
@@ -61,8 +79,6 @@ markdown_extensions:
   - admonition
   - pymdownx.highlight
   - pymdownx.extra
-  - pymdownx.tabbed:
-      alternate_style: true
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.emoji: #for emoji support e.g checkmarks

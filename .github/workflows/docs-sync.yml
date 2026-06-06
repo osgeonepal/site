@@ -1,0 +1,64 @@
+name: Sync Google Docs Meetings → MkDocs
+
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 18 15 * *"  # runs monthly on the 16th at 00:00 Nepal time
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      # --------------------------------------------------
+      # 1. Checkout repository
+      # --------------------------------------------------
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # --------------------------------------------------
+      # 2. Setup Python
+      # --------------------------------------------------
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      # --------------------------------------------------
+      # 3. Install dependencies
+      # --------------------------------------------------
+      - name: Install dependencies
+        run: |
+          pip install google-api-python-client google-auth
+
+      # --------------------------------------------------
+      # 4. Run sync script
+      # --------------------------------------------------
+      - name: Run Google Docs sync
+        env:
+          GOOGLE_DOC_ID: ${{ secrets.GOOGLE_DOC_ID }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        run: python sync_meetings.py
+
+      # --------------------------------------------------
+      # 5. Commit changes (if any)
+      # --------------------------------------------------
+      - name: Commit changes
+        run: |
+          git config --global user.name "docs-sync-bot"
+          git config --global user.email "docs-sync-bot@users.noreply.github.com"
+
+          git add docs/Meetings
+
+          git commit -m "Auto-sync meetings from Google Docs" || echo "No changes to commit"
+
+      # --------------------------------------------------
+      # 6. Push changes
+      # --------------------------------------------------
+      - name: Push changes
+        run: |
+          git push
