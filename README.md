@@ -16,7 +16,7 @@ To run the local instance of this repo for development purpose, we use MKDocs.
 - Run the localhost
 ``mkdocs serve`` 
 
-Note : While contributing to docs for meetings and events make sure your .md file naming starts with ```year_month_day_rest_details.md```
+Note : While contributing to docs for meetings and events make sure your .md file naming starts with ```year_month_day_rest_details.md```. Meeting notes are automatically synced on the 15th of every month.
 
 ## Join US on Discord
 
@@ -32,4 +32,3 @@ Meetings are scheduled on the first Friday of Every Month 7 pm onwards.
 Join the **OSGEO Nepal** Jitsi meet room via link [here.](https://meet.jit.si/osgeonepal)
 
 Let's have open discussions!!!!
-
