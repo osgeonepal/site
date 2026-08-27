@@ -1,28 +1,57 @@
-name: Build and Publish Documentation to GitHub Pages
+name: Sync Meetings and Deploy Docs
+
 on:
   push:
     branches:
       - master
     paths:
-      # Only rebuild documentation when docs have changed
       - "docs/**"
       - "mkdocs.yml"
       - ".github/workflows/publish_mkdocs.yml"
+  workflow_dispatch: {}
+  schedule:
+    - cron: "15 18 15 * *"  # 00:00 Nepal time on the 15th
+
 permissions:
   contents: write
+
 jobs:
-  deploy:
+  sync-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          python-version: 3.10.13
-          publish_branch: gh-pages
-      - name: Install Dependencies
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Configure git user
+        run: |
+          git config --global user.name "docs-sync-bot"
+          git config --global user.email "docs-sync-bot@users.noreply.github.com"
+
+      - name: Install dependencies
         run: |
           pip install mkdocs-material==8.5.11 mkdocs-jupyter==0.22.0 neoteroi-mkdocs==0.1.2 mkdocs-awesome-pages-plugin==2.9.2 lxml_html_clean==0.1.1
+          pip install google-api-python-client google-auth
 
-      - name: Deploy Documentation
-        run: python -m mkdocs  gh-deploy --force -f mkdocs.yml
+      # Only runs meaningfully on schedule/workflow_dispatch; on a docs push
+      # there's usually nothing new from Google Docs, and that's fine.
+      - name: Sync meetings from Google Docs
+        env:
+          GOOGLE_DOC_ID: ${{ secrets.GOOGLE_DOC_ID }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        run: python sync_meetings.py
+
+      - name: Commit newly synced meeting notes
+        run: |
+          git add docs/Meetings
+          git commit -m "Auto-sync meetings from Google Docs" || echo "No new meetings to commit"
+          git push || echo "Nothing to push"
+
+      - name: Deploy Documentation to gh-pages
+        run: python -m mkdocs gh-deploy --force --clean -f mkdocs.yml
